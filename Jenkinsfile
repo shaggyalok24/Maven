@@ -13,7 +13,6 @@ pipeline {
        steps {
          
           echo "test"
-          sh "ls -lat"
          
           }
       }
@@ -22,7 +21,7 @@ pipeline {
       steps {
         
        echo "deploy"
-        
+       sh "ls -lat"
         
        }
       }
