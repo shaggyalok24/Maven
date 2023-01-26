@@ -1,22 +1,31 @@
 pipeline {
   agent any
-  
+  tools {
+    maven 'maven'
+  }
+  environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
+    
   stages {
      stage('chekout')
        {
          steps {
-            echo "build"
+            sh 'mvn clean package'
             }
         }
-     stage('test')
-     {
-       steps {
-         
-          echo "test"
-         
-          }
-      }
-     stage('deploy')
+      
+      stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("shggyalok24/hello-world:${TAG}")
+                }
+            }
+        }
+    
+   
+     stage('')
      {
       steps {
         
